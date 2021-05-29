@@ -7,7 +7,7 @@ function getRandomInt(min, max) {
 
 // Функция для проверки максимальной длины строки.
 function checkLength(stroke, maxLength) {
-  return (stroke <= maxLength);
+  return (stroke.length <= maxLength);
 }
 
 getRandomInt();
