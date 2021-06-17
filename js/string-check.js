@@ -1,6 +1,4 @@
 // Функция для проверки максимальной длины строки.
-function checkLength(string, maxLength) {
-  return (string.length <= maxLength);
-}
+const checkLength = (string, maxLength) => (string.length <= maxLength);
 
 export {checkLength};
