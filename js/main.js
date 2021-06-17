@@ -1,7 +1,7 @@
-import {picDataСollecting} from './photo-card-setup.js';
+import {photoCardsRender} from './photo-cards-render.js';
 
 // Константы.
 const PHOTO_CARDS_QUATITY = 25;
 
-// Сборка массива данных с фотографиями пользователей.
-picDataСollecting(PHOTO_CARDS_QUATITY);
+// Наполнение галереи фотографиями пользователей.
+photoCardsRender(PHOTO_CARDS_QUATITY);

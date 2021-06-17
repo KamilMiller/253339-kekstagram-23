@@ -12,15 +12,15 @@ const COMMENT_TEXTS = [
 // Массив имен авторов комментариев.
 const COMMENTATEURS = ['Charm', 'Strange', 'Muon', 'Tau', 'Gluon', 'Higgs'];
 
-function getRandomElement(arr) {
+const getRandomElement = (arr) => {
   const elementIndex = getRandomInt(0, arr.length - 1);
   const randomElement = arr[elementIndex];
   arr.splice(elementIndex, 1);
   return randomElement;
-}
+};
 
 // Функция создания массива комментариев.
-function commentsAssembling(commentQuantity) {
+const commentsAssembling = (commentQuantity) => {
   const commentsCache = [];
   const commentTextsCopy = COMMENT_TEXTS.slice();
   const commentateursCopy = COMMENTATEURS.slice();
@@ -33,16 +33,16 @@ function commentsAssembling(commentQuantity) {
     });
   }
   return commentsCache;
-}
+};
 
 // Функция сборки [карточки] фотогрфии с данными.
-function picDataСollecting(dataQuantity) {
+const picDataСollecting = (dataQuantity) => {
   const userPictures = [];
-  for (let index = 1; index <= dataQuantity; index++) {
+  for (let i = 1; i <= dataQuantity; i++) {
     const comments = commentsAssembling(getRandomInt(1, 6));
     userPictures.push({
-      id: index,
-      url: `photos/${index}.jpg`,
+      id: i,
+      url: `photos/${i}.jpg`,
       description: 'Это фотография.',
       likes: getRandomInt(5, 200),
       comments: comments,
@@ -50,6 +50,6 @@ function picDataСollecting(dataQuantity) {
     });
   }
   return userPictures;
-}
+};
 
 export {picDataСollecting};
