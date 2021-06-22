@@ -1,4 +1,5 @@
-import {photoCardsRender} from './photo-cards-render.js';
+import { photoCardsRender } from './photo-cards-render.js';
+import './image-upload.js';
 
 // Константы.
 const PHOTO_CARDS_QUATITY = 25;

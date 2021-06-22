@@ -1,4 +1,4 @@
-import {picDataСollecting} from './pic-data-collecting.js';
+import { picDataСollecting } from './pic-data-collecting.js';
 
 // Переменные.
 const photoCardTemplate = document.querySelector('#picture').content.querySelector('.picture');
@@ -17,4 +17,4 @@ const photoCardsRender = (quantity) => {
   return picturesContainer.appendChild(fragment);
 };
 
-export {photoCardsRender};
+export { photoCardsRender };
