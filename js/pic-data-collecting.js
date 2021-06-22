@@ -1,4 +1,4 @@
-import {getRandomInt} from './random-int.js';
+import { getRandomInt } from './util.js';
 
 const COMMENT_TEXTS = [
   'Всё отлично!',
@@ -52,4 +52,4 @@ const picDataСollecting = (dataQuantity) => {
   return userPictures;
 };
 
-export {picDataСollecting};
+export { picDataСollecting };
