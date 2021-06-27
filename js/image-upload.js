@@ -5,6 +5,7 @@ const bodyElement = document.querySelector('body');
 const uploadForm = document.querySelector('.img-upload__form');
 const fileUplodControl = uploadForm.querySelector('.img-upload__input');
 const imageUploadForm = uploadForm.querySelector('.img-upload__overlay');
+const uploadedPicture = uploadForm.querySelector('.img-upload__preview').querySelector('img');
 const closeFormButton = uploadForm.querySelector('.img-upload__cancel');
 const hashtagsInput = uploadForm.querySelector('.text__hashtags');
 const commentTextArea = uploadForm.querySelector('.text__description');
@@ -15,6 +16,7 @@ const onUploadFormEscKeyDown = (evt) => {
     evt.preventDefault();
     imageUploadForm.classList.add('hidden');
     bodyElement.classList.remove('modal-open');
+    uploadedPicture.removeAttribute('class');
     uploadForm.reset();
   }
 };
@@ -28,6 +30,7 @@ const openUpload = () => {
 const closeUpload = () => {
   imageUploadForm.classList.add('hidden');
   bodyElement.classList.remove('modal-open');
+  uploadedPicture.removeAttribute('class');
   document.removeEventListener('keydown', onUploadFormEscKeyDown);
 };
 
@@ -62,3 +65,5 @@ commentTextArea.addEventListener('keydown', (evt) => {
     evt.stopPropagation();
   }
 });
+
+export { fileUplodControl, uploadedPicture };
