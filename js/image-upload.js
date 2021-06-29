@@ -10,13 +10,19 @@ const closeFormButton = uploadForm.querySelector('.img-upload__cancel');
 const hashtagsInput = uploadForm.querySelector('.text__hashtags');
 const commentTextArea = uploadForm.querySelector('.text__description');
 
+// Сброс фильтров при закрытии формы.
+const resetEffects = () => {
+  uploadedPicture.removeAttribute('class');
+  uploadedPicture.style.filter = 'none';
+};
+
 // Открытие и закрытие формы.
 const onUploadFormEscKeyDown = (evt) => {
   if (isEscEvent(evt)) {
     evt.preventDefault();
     imageUploadForm.classList.add('hidden');
     bodyElement.classList.remove('modal-open');
-    uploadedPicture.removeAttribute('class');
+    resetEffects();
     uploadForm.reset();
   }
 };
@@ -30,17 +36,12 @@ const openUpload = () => {
 const closeUpload = () => {
   imageUploadForm.classList.add('hidden');
   bodyElement.classList.remove('modal-open');
-  uploadedPicture.removeAttribute('class');
+  resetEffects();
   document.removeEventListener('keydown', onUploadFormEscKeyDown);
 };
 
-fileUplodControl.addEventListener('change', () => {
-  openUpload();
-});
-
-closeFormButton.addEventListener('click', () => {
-  closeUpload();
-});
+fileUplodControl.addEventListener('change', openUpload);
+closeFormButton.addEventListener('click', closeUpload);
 
 closeFormButton.addEventListener('keydown', (evt) => {
   if (isEscEvent(evt)) {
@@ -66,4 +67,4 @@ commentTextArea.addEventListener('keydown', (evt) => {
   }
 });
 
-export { fileUplodControl, uploadedPicture };
+export { fileUplodControl, uploadedPicture, resetEffects };
