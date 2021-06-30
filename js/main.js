@@ -1,5 +1,7 @@
 import { photoCardsRender } from './photo-cards-render.js';
 import './image-upload.js';
+import './image-resize.js';
+import './effects-control.js';
 
 // Константы.
 const PHOTO_CARDS_QUATITY = 25;
