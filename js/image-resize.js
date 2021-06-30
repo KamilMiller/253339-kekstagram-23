@@ -1,10 +1,10 @@
 import { fileUplodControl } from './image-upload.js';
 import { uploadedPicture } from './image-upload.js';
 
+let scaleIndex = 1;
 const RESIZE_SCALE_INCREMENT = 0.25;
 const MAX_SCALE = 1;
 const MIN_SCALE = 0.25;
-let scaleIndex = 1;
 const scaleControlSmaller = document.querySelector('.scale__control--smaller');
 const scaleControlBigger = document.querySelector('.scale__control--bigger');
 const scaleControlValue = document.querySelector('.scale__control--value');

@@ -2,87 +2,68 @@ import { fileUplodControl } from './image-upload.js';
 import { uploadedPicture } from './image-upload.js';
 import { resetEffects } from './image-upload.js';
 
-const effectsData = [
-  // {
-  //   id: 'none',
-  //   property: 'none',
-  // },
-  {
-    chrome: {
-      id: 'chrome',
-      property: 'grayscale',
-      unit: '',
-      options: {
-        range: {
-          min: 0,
-          max: 1,
-        },
-        step: 0.1,
-        start: 1,
+const effectsData = {
+  chrome: {
+    property: 'grayscale',
+    unit: '',
+    options: {
+      range: {
+        min: 0,
+        max: 1,
       },
+      step: 0.1,
+      start: 1,
     },
   },
-  {
-    sepia: {
-      id: 'sepia',
-      property: 'sepia',
-      unit: '',
-      options: {
-        range: {
-          min: 0,
-          max: 1,
-        },
-        step: 0.1,
-        start: 1,
+  sepia: {
+    property: 'sepia',
+    unit: '',
+    options: {
+      range: {
+        min: 0,
+        max: 1,
       },
+      step: 0.1,
+      start: 1,
     },
   },
-  {
-    marvin: {
-      id: 'marvin',
-      property: 'invert',
-      unit: '%',
-      options: {
-        range: {
-          min: 1,
-          max: 100,
-        },
-        step: 1,
-        start: 100,
+  marvin: {
+    property: 'invert',
+    unit: '%',
+    options: {
+      range: {
+        min: 1,
+        max: 100,
       },
+      step: 1,
+      start: 100,
     },
   },
-  {
-    phobos: {
-      id: 'phobos',
-      property: 'blur',
-      unit: 'px',
-      options: {
-        range: {
-          min: 1,
-          max: 3,
-        },
-        step: 0.1,
-        start: 3,
+  phobos: {
+    property: 'blur',
+    unit: 'px',
+    options: {
+      range: {
+        min: 1,
+        max: 3,
       },
+      step: 0.1,
+      start: 3,
     },
   },
-  {
-    heat: {
-      id: 'heat',
-      property: 'brightness',
-      unit: '',
-      options: {
-        range: {
-          min: 1,
-          max: 3,
-        },
-        step: 0.1,
-        start: 3,
+  heat: {
+    property: 'brightness',
+    unit: '',
+    options: {
+      range: {
+        min: 1,
+        max: 3,
       },
+      step: 0.1,
+      start: 3,
     },
   },
-];
+};
 const sliderContainer = document.querySelector('.img-upload__effect-level');
 const effectLevelValue = sliderContainer.querySelector('.effect-level__value');
 const sliderElement = sliderContainer.querySelector('.effect-level__slider');
@@ -91,21 +72,17 @@ const noEffect = effectList.querySelector('#effect-none');
 
 // Функция переключения фильтров.
 const effectChangeHandler = (evt) => {
-  if (evt.target.matches('input[type="radio"]')) {
-    if (!evt.target.matches('#effect-none')) {
-      sliderContainer.style = 'display: block';
-      for (const effect of effectsData) {
-        // Ниже в строке нужно добавить свойство 'id' в строку. Я не могу сформулировать эту задачу для цикла.
-        if (evt.target.matches(`#effect-${effect.id}`)) {
-          uploadedPicture.removeAttribute('class');
-          // Та же проблема:
-          uploadedPicture.classList.add(`effects__preview--${effect.id}`);
-          break;
-        }
+  if (!evt.target.matches('#effect-none')) {
+    sliderContainer.style = 'display: block';
+    for (const effect in effectsData) {
+      if (evt.target.matches(`#effect-${effect}`)) {
+        uploadedPicture.removeAttribute('class');
+        uploadedPicture.classList.add(`effects__preview--${effect}`);
+        break;
       }
-    } else {
-      resetEffects();
     }
+  } else {
+    resetEffects();
   }
 };
 
@@ -131,11 +108,9 @@ noUiSlider.create(sliderElement, {
 
 // Функция изменения настроек слайдера для фильтров.
 const changeFiltersSetup = (filter, arr) => {
-  for (const element of arr) {
-    // Та же история. Элементы массива effectsData -- это объекты с разными ключами, свойствами которых также является объект.
-    // Поскольку ключи разные, как сформулировать задачу для цикла, чтобы он прошел по всем объектам массива, и извлек свойства 'id' и 'options' из вложенных объектов?:
-    if (filter.target.matches(`#effect-${element.id}`)) {
-      sliderElement.noUiSlider.updateOptions(element.options);
+  for (const element in arr) {
+    if (filter.target.matches(`#effect-${element}`)) {
+      sliderElement.noUiSlider.updateOptions(arr[element].options);
       break;
     }
   }
@@ -143,10 +118,9 @@ const changeFiltersSetup = (filter, arr) => {
 
 // Функция регулировки фильтра.
 const getEffectsLevel = (arr, value) => {
-  for (const element of arr) {
-    // Здесь то же самое:
-    if (effectList.querySelector(`#effect-${element.id}`).checked) {
-      uploadedPicture.style.filter = `${element.property}(${value}${element.unit})`;
+  for (const element in arr) {
+    if (effectList.querySelector(`#effect-${element}`).checked) {
+      uploadedPicture.style.filter = `${arr[element].property}(${value}${arr[element].unit})`;
       break;
     }
   }
