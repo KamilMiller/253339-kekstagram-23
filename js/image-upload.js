@@ -9,11 +9,13 @@ const uploadedPicture = uploadForm.querySelector('.img-upload__preview').querySe
 const closeFormButton = uploadForm.querySelector('.img-upload__cancel');
 const hashtagsInput = uploadForm.querySelector('.text__hashtags');
 const commentTextArea = uploadForm.querySelector('.text__description');
+const effectNone = document.querySelector('#effect-none');
 
 // Сброс фильтров при закрытии формы.
 const resetEffects = () => {
   uploadedPicture.removeAttribute('class');
   uploadedPicture.style.filter = 'none';
+  effectNone.checked = true;
 };
 
 // Открытие и закрытие формы.
@@ -37,6 +39,7 @@ const closeUpload = () => {
   imageUploadForm.classList.add('hidden');
   bodyElement.classList.remove('modal-open');
   resetEffects();
+  uploadForm.reset();
   document.removeEventListener('keydown', onUploadFormEscKeyDown);
 };
 
@@ -67,4 +70,4 @@ commentTextArea.addEventListener('keydown', (evt) => {
   }
 });
 
-export { fileUplodControl, uploadedPicture, resetEffects };
+export { uploadForm, fileUplodControl, uploadedPicture, closeUpload, resetEffects };
