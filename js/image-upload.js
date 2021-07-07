@@ -3,7 +3,7 @@ import { checkHashtagValidity } from './validation.js';
 
 const bodyElement = document.querySelector('body');
 const uploadForm = document.querySelector('.img-upload__form');
-const fileUplodControl = uploadForm.querySelector('.img-upload__input');
+const fileUploadControl = uploadForm.querySelector('.img-upload__input');
 const imageUploadForm = uploadForm.querySelector('.img-upload__overlay');
 const uploadedPicture = uploadForm.querySelector('.img-upload__preview').querySelector('img');
 const closeFormButton = uploadForm.querySelector('.img-upload__cancel');
@@ -43,7 +43,7 @@ const closeUpload = () => {
   document.removeEventListener('keydown', onUploadFormEscKeyDown);
 };
 
-fileUplodControl.addEventListener('change', openUpload);
+fileUploadControl.addEventListener('change', openUpload);
 closeFormButton.addEventListener('click', closeUpload);
 
 closeFormButton.addEventListener('keydown', (evt) => {
@@ -70,4 +70,4 @@ commentTextArea.addEventListener('keydown', (evt) => {
   }
 });
 
-export { uploadForm, fileUplodControl, uploadedPicture, closeUpload, resetEffects };
+export { uploadForm, fileUploadControl, uploadedPicture, closeUpload, resetEffects };

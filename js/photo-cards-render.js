@@ -1,15 +1,15 @@
-const ALERT_SHOW_TIME = 10000;
+const ALERT_SHOW_TIME = 20000;
 const photoCardTemplate = document.querySelector('#picture').content.querySelector('.picture');
 const picturesContainer = document.querySelector('.pictures');
 
 // Сообщение об обшибке загрузки данных.
 const showAlert = (message) => {
   const alertContainer = document.createElement('div');
-  alertContainer.style.zIndex = 100;
+  alertContainer.style.zIndex = '100';
   alertContainer.style.position = 'absolute';
-  alertContainer.style.left = 0;
-  alertContainer.style.top = 0;
-  alertContainer.style.right = 0;
+  alertContainer.style.left = '0';
+  alertContainer.style.top = '0';
+  alertContainer.style.right = '0';
   alertContainer.style.padding = '10px 3px';
   alertContainer.style.fontSize = '30px';
   alertContainer.style.textAlign = 'center';
@@ -21,28 +21,22 @@ const showAlert = (message) => {
   }, ALERT_SHOW_TIME);
 };
 
+// Сборка фрагмента с карточками.
+const setPhotoCard = (fragment, element) => {
+  const photoCard = photoCardTemplate.cloneNode(true);
+  photoCard.querySelector('.picture__img').src = element.url;
+  photoCard.querySelector('.picture__comments').textContent = element.comments.length;
+  photoCard.querySelector('.picture__likes').textContent = element.likes;
+  fragment.appendChild(photoCard);
+};
+
 // Сборка галереи с фотографиями пользователей.
 const photoCardsRender = (data) => {
   const fragment = document.createDocumentFragment();
   data.forEach((item) => {
-    const photoCard = photoCardTemplate.cloneNode(true);
-    photoCard.querySelector('.picture__img').src = item.url;
-    photoCard.querySelector('.picture__comments').textContent = item.comments.length;
-    photoCard.querySelector('.picture__likes').textContent = item.likes;
-    fragment.appendChild(photoCard);
+    setPhotoCard(fragment, item);
   });
   return picturesContainer.appendChild(fragment);
 };
 
-const getUsersPhotoData = (renderFunction) => {
-  fetch('https://23.javascript.pages.academy/kekstagram/data')
-    .then((response) => response.json())
-    .then((photoCardsData) => {
-      renderFunction(photoCardsData);
-    })
-    .catch(() => {
-      showAlert('Не удалось загрузить фотографии пользователей :(');
-    });
-};
-
-export { photoCardsRender, getUsersPhotoData };
+export { showAlert, photoCardsRender };
