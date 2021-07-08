@@ -3,17 +3,19 @@ import { checkHashtagValidity } from './validation.js';
 
 const bodyElement = document.querySelector('body');
 const uploadForm = document.querySelector('.img-upload__form');
-const fileUplodControl = uploadForm.querySelector('.img-upload__input');
+const fileUploadControl = uploadForm.querySelector('.img-upload__input');
 const imageUploadForm = uploadForm.querySelector('.img-upload__overlay');
 const uploadedPicture = uploadForm.querySelector('.img-upload__preview').querySelector('img');
 const closeFormButton = uploadForm.querySelector('.img-upload__cancel');
 const hashtagsInput = uploadForm.querySelector('.text__hashtags');
 const commentTextArea = uploadForm.querySelector('.text__description');
+const effectNone = document.querySelector('#effect-none');
 
 // Сброс фильтров при закрытии формы.
 const resetEffects = () => {
   uploadedPicture.removeAttribute('class');
   uploadedPicture.style.filter = 'none';
+  effectNone.checked = true;
 };
 
 // Открытие и закрытие формы.
@@ -37,10 +39,11 @@ const closeUpload = () => {
   imageUploadForm.classList.add('hidden');
   bodyElement.classList.remove('modal-open');
   resetEffects();
+  uploadForm.reset();
   document.removeEventListener('keydown', onUploadFormEscKeyDown);
 };
 
-fileUplodControl.addEventListener('change', openUpload);
+fileUploadControl.addEventListener('change', openUpload);
 closeFormButton.addEventListener('click', closeUpload);
 
 closeFormButton.addEventListener('keydown', (evt) => {
@@ -67,4 +70,4 @@ commentTextArea.addEventListener('keydown', (evt) => {
   }
 });
 
-export { fileUplodControl, uploadedPicture, resetEffects };
+export { uploadForm, fileUploadControl, uploadedPicture, closeUpload, resetEffects };

@@ -1,4 +1,4 @@
-import { fileUplodControl } from './image-upload.js';
+import { fileUploadControl } from './image-upload.js';
 import { uploadedPicture } from './image-upload.js';
 import { resetEffects } from './image-upload.js';
 
@@ -73,7 +73,7 @@ const noEffect = effectList.querySelector('#effect-none');
 // Функция переключения фильтров.
 const effectChangeHandler = (evt) => {
   if (!evt.target.matches('#effect-none')) {
-    sliderContainer.style = 'display: block';
+    sliderContainer.style.display = 'block';
     for (const effect in effectsData) {
       if (evt.target.matches(`#effect-${effect}`)) {
         uploadedPicture.removeAttribute('class');
@@ -85,6 +85,12 @@ const effectChangeHandler = (evt) => {
     resetEffects();
   }
 };
+
+fileUploadControl.addEventListener('change', () => {
+  sliderContainer.style.display = 'none';
+});
+effectList.addEventListener('change', effectChangeHandler);
+noEffect.addEventListener('click', () => sliderContainer.style = 'display: none');
 
 // Инициализация слайдера.
 noUiSlider.create(sliderElement, {
@@ -126,13 +132,8 @@ const getEffectsLevel = (arr, value) => {
   }
 };
 
-fileUplodControl.addEventListener('change', () => {
-  sliderContainer.style.display = 'none';
-});
-effectList.addEventListener('change', effectChangeHandler);
 effectList.addEventListener('change', (evt) => changeFiltersSetup(evt, effectsData));
+getEffectsLevel(effectsData, effectLevelValue.value);
 sliderElement.noUiSlider.on('update', (_, handle, unencoded) => {
   effectLevelValue.value = unencoded[handle];
-  getEffectsLevel(effectsData, effectLevelValue.value);
 });
-noEffect.addEventListener('click', () => sliderContainer.style = 'display: none');

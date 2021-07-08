@@ -1,4 +1,4 @@
-import { fileUplodControl } from './image-upload.js';
+import { fileUploadControl } from './image-upload.js';
 import { uploadedPicture } from './image-upload.js';
 
 let scaleIndex = 1;
@@ -36,4 +36,4 @@ scaleControlSmaller.addEventListener('click', () => {
 scaleControlBigger.addEventListener('click', () => {
   changeScale(scaleDicrections.up);
 });
-fileUplodControl.addEventListener('change', resetPictureSize);
+fileUploadControl.addEventListener('change', resetPictureSize);

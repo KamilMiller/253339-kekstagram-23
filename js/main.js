@@ -1,10 +1,12 @@
-import { photoCardsRender } from './photo-cards-render.js';
+import { photoCardsRender, showAlert } from './photo-cards-render.js';
+import { getData } from './api.js';
 import './image-upload.js';
 import './image-resize.js';
 import './effects-control.js';
-
-// Константы.
-const PHOTO_CARDS_QUATITY = 25;
+import { setUserFormSubmit } from './submit-form.js';
 
 // Наполнение галереи фотографиями пользователей.
-photoCardsRender(PHOTO_CARDS_QUATITY);
+getData(photoCardsRender, showAlert);
+
+//Отправка формы и закрытие окна.
+setUserFormSubmit();
