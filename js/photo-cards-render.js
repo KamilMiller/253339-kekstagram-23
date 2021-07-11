@@ -1,3 +1,6 @@
+import { getData } from './api.js';
+import { filtersBox } from './filter.js';
+
 const ALERT_SHOW_TIME = 20000;
 const photoCardTemplate = document.querySelector('#picture').content.querySelector('.picture');
 const picturesContainer = document.querySelector('.pictures');
@@ -36,7 +39,12 @@ const photoCardsRender = (data) => {
   data.forEach((item) => {
     setPhotoCard(fragment, item);
   });
+  filtersBox.classList.remove('img-filters--inactive');
+  document.querySelectorAll('.picture').forEach((element) => element.remove());
   return picturesContainer.appendChild(fragment);
 };
 
-export { showAlert, photoCardsRender };
+const dataPromise = getData(showAlert);
+dataPromise.then(photoCardsRender);
+
+export { photoCardsRender, dataPromise };
