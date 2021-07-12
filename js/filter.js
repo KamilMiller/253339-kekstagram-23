@@ -1,5 +1,4 @@
 import { dataPromise, photoCardsRender } from './photo-cards-render.js';
-import { getRandomElement } from './util.js';
 import { debounce } from './utils/debounce.js';
 
 const RERENDER_DELAY = 500;
@@ -12,21 +11,17 @@ const filterDiscussed = document.querySelector('#filter-discussed');
 // Оформление кнопок фильтров при переключении
 // Логику взял здесь: https://ru.stackoverflow.com/questions/876796/Настроить-переключение-кнопок
 const setFilterButtonsStyle = () => {
-  for (const button of buttons) {
-    button.addEventListener('click', function () {
-      buttons.forEach((i) => i.classList.remove('img-filters__button--active'));
-      this.classList.toggle('img-filters__button--active');
+  buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+      buttons.forEach((element) => element.classList.remove('img-filters__button--active'));
+      button.classList.toggle('img-filters__button--active');
     });
-  }
+  });
 };
 
 // Выборка 10 случайных фотографий пользователей
 const getRandomTenPictures = (arr) => {
-  const randomTenPicture = [];
-  const copyOfPictureData = arr.slice();
-  for (let i = 0; i < 10; i++) {
-    randomTenPicture.push(getRandomElement(copyOfPictureData));
-  }
+  const randomTenPicture = arr.map((item) => [Math.random(), item]).sort().map((element) => element[1]).slice(0, 10);
   photoCardsRender(randomTenPicture);
 };
 
