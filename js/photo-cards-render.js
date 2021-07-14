@@ -44,15 +44,14 @@ const photoCardsRender = (data) => {
   filtersBox.classList.remove('img-filters--inactive');
   document.querySelectorAll('.picture').forEach((element) => element.remove());
   picturesContainer.appendChild(fragment);
-  console.log(data);
 
   picturesContainer.addEventListener('click', (evt) => {
     const targetElement = evt.target.closest('.picture');
     const elementId = parseInt(targetElement.querySelector('img').id, 10);
-    openFullSizePhoto(data, elementId);
-    getCommentsList(data, elementId);
+    const elementData = data[elementId];
+    openFullSizePhoto(elementData);
+    getCommentsList(elementData);
   });
-  return fragment;
 };
 
 const dataPromise = getData(showAlert);

@@ -23,28 +23,34 @@ const closeBigPicturePopUp = () => {
   document.removeEventListener('keydown', onFullSizePictureEscKeyDown);
 };
 
+// Сборка комментария к полноразмерной фотографии
+const getComment = (dataItem) => {
+  const fragment = document.createDocumentFragment();
+
+  const newComment = document.createElement('li');
+  newComment.classList.add('social__comment');
+
+  const newUser = document.createElement('img');
+  newUser.classList.add('social__picture');
+  newUser.src = dataItem.avatar;
+  newUser.alt = dataItem.name;
+  newUser.width = 35;
+  newUser.height = 35;
+  newComment.appendChild(newUser);
+
+  const commentText = document.createElement('p');
+  commentText.classList.add('social__text');
+  commentText.textContent = dataItem.message;
+  newComment.appendChild(commentText);
+
+  fragment.appendChild(newComment);
+  commentsList.appendChild(fragment);
+};
+
 // Создание списка комментариев
-const getCommentsList = (dataArr, id) => {
+const getCommentsList = (element) => {
   commentsList.replaceChildren();
-
-  for(let i = 0; i < dataArr[id].comments.length; i++) {
-    const newComment = document.createElement('li');
-    commentsList.appendChild(newComment);
-    newComment.classList.add('social__comment');
-
-    const newUser = document.createElement('img');
-    newComment.appendChild(newUser);
-    newUser.classList.add('social__picture');
-    newUser.src = dataArr[id].comments[i].avatar;
-    newUser.alt = dataArr[id].comments[i].name;
-    newUser.width = '35';
-    newUser.height = '35';
-
-    const commentText = document.createElement('p');
-    newComment.appendChild(commentText);
-    commentText.classList.add('social__text');
-    commentText.textContent = dataArr[id].comments[i].message;
-  }
+  element.comments.forEach((item) => getComment(item));
 
   //Временно:
   loadedCommentsCount.classList.add('hidden');
@@ -52,13 +58,13 @@ const getCommentsList = (dataArr, id) => {
 };
 
 // Демонстрация полноразмерного фото
-const openFullSizePhoto = (dataArr, id) => {
+const openFullSizePhoto = (element) => {
   bigPicturePopUp.classList.remove('hidden');
   document.body.classList.add('modal-open');
-  bigPictureImage.src = dataArr[id].url;
-  likesCount.textContent = dataArr[id].likes;
-  commentsCount.textContent = dataArr[id].comments.length;
-  socialCaption.textContent = dataArr[id].description;
+  bigPictureImage.src = element.url;
+  likesCount.textContent = element.likes;
+  commentsCount.textContent = element.comments.length;
+  socialCaption.textContent = element.description;
 
   bigPictureClose.addEventListener('click', closeBigPicturePopUp);
   document.addEventListener('keydown', onFullSizePictureEscKeyDown);
