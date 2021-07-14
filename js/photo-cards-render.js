@@ -1,5 +1,6 @@
 import { getData } from './api.js';
 import { filtersBox } from './filter.js';
+import { getCommentsList, openFullSizePhoto } from './full-size-picture.js';
 
 const ALERT_SHOW_TIME = 20000;
 const photoCardTemplate = document.querySelector('#picture').content.querySelector('.picture');
@@ -28,6 +29,7 @@ const showAlert = (message) => {
 const setPhotoCard = (fragment, element) => {
   const photoCard = photoCardTemplate.cloneNode(true);
   photoCard.querySelector('.picture__img').src = element.url;
+  photoCard.querySelector('.picture__img').id = element.id;
   photoCard.querySelector('.picture__comments').textContent = element.comments.length;
   photoCard.querySelector('.picture__likes').textContent = element.likes;
   fragment.appendChild(photoCard);
@@ -41,7 +43,15 @@ const photoCardsRender = (data) => {
   });
   filtersBox.classList.remove('img-filters--inactive');
   document.querySelectorAll('.picture').forEach((element) => element.remove());
-  return picturesContainer.appendChild(fragment);
+  picturesContainer.appendChild(fragment);
+
+  picturesContainer.addEventListener('click', (evt) => {
+    const targetElement = evt.target.closest('.picture');
+    const elementId = parseInt(targetElement.querySelector('img').id, 10);
+    const elementData = data[elementId];
+    openFullSizePhoto(elementData);
+    getCommentsList(elementData);
+  });
 };
 
 const dataPromise = getData(showAlert);
