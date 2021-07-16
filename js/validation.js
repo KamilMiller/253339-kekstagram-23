@@ -1,4 +1,5 @@
-// Константы.
+import { hashtagsInput } from './upload-form.js';
+
 const HASHTAGS_LIMIT = 5;
 
 // Валидация хэштэгов.
@@ -18,9 +19,16 @@ const checkHashtagValidity = (inputElement) => {
       inputElement.setCustomValidity('Хэштэги не должны повторяться (регистр не учитывается)');
     } else {
       inputElement.setCustomValidity('');
+      hashtagsInput.style = 'outline: black auto 2px';
     }
   });
   inputElement.reportValidity();
 };
 
-export { checkHashtagValidity };
+hashtagsInput.addEventListener('input', () => {
+  checkHashtagValidity(hashtagsInput);
+});
+
+hashtagsInput.addEventListener('invalid', () => {
+  hashtagsInput.style = 'outline: red auto 2px';
+});

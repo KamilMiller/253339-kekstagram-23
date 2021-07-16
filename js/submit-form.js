@@ -1,4 +1,4 @@
-import { uploadForm } from './image-upload.js';
+import { uploadForm } from './upload-form.js';
 import { successAlert, errorAlert } from './modals.js';
 import { sendData } from './api.js';
 

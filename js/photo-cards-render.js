@@ -53,10 +53,12 @@ const photoCardsRender = (data) => {
 
 picturesContainer.addEventListener('click', (evt) => {
   const targetElement = evt.target.closest('.picture');
-  const elementId = parseInt(targetElement.querySelector('img').id, 10);
-  const elementData = displayedPhotoCardsArr[elementId];
-  openFullSizePhoto(elementData);
-  getCommentsList(elementData);
+  if (targetElement !== null) {
+    const elementId = parseInt(targetElement.querySelector('img').id, 10);
+    const elementData = displayedPhotoCardsArr.find((item) => item.id === elementId);
+    openFullSizePhoto(elementData);
+    getCommentsList(elementData);
+  }
 });
 
 const dataPromise = getData(showAlert);
