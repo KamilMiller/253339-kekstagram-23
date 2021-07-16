@@ -32,6 +32,7 @@ const getDiscussedPictures = (arr) => {
   photoCardsRender(copy);
 };
 
+// Фильтрация
 const setFilters = (e) => {
   const target = e.target;
   if (target === filterDefault) {

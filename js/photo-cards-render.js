@@ -25,6 +25,8 @@ const showAlert = (message) => {
   }, ALERT_SHOW_TIME);
 };
 
+let displayedPhotoCardsArr = [];
+
 // Сборка фрагмента с карточками.
 const setPhotoCard = (fragment, element) => {
   const photoCard = photoCardTemplate.cloneNode(true);
@@ -37,22 +39,25 @@ const setPhotoCard = (fragment, element) => {
 
 // Сборка галереи с фотографиями пользователей.
 const photoCardsRender = (data) => {
+  displayedPhotoCardsArr = data;
   const fragment = document.createDocumentFragment();
-  data.forEach((item) => {
+  displayedPhotoCardsArr.forEach((item) => {
     setPhotoCard(fragment, item);
   });
   filtersBox.classList.remove('img-filters--inactive');
   document.querySelectorAll('.picture').forEach((element) => element.remove());
   picturesContainer.appendChild(fragment);
 
-  picturesContainer.addEventListener('click', (evt) => {
-    const targetElement = evt.target.closest('.picture');
-    const elementId = parseInt(targetElement.querySelector('img').id, 10);
-    const elementData = data[elementId];
-    openFullSizePhoto(elementData);
-    getCommentsList(elementData);
-  });
+  return displayedPhotoCardsArr;
 };
+
+picturesContainer.addEventListener('click', (evt) => {
+  const targetElement = evt.target.closest('.picture');
+  const elementId = parseInt(targetElement.querySelector('img').id, 10);
+  const elementData = displayedPhotoCardsArr[elementId];
+  openFullSizePhoto(elementData);
+  getCommentsList(elementData);
+});
 
 const dataPromise = getData(showAlert);
 dataPromise.then(photoCardsRender);
