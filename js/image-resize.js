@@ -1,5 +1,5 @@
-import { fileUploadControl } from './image-upload.js';
-import { uploadedPicture } from './image-upload.js';
+import { fileUploadControl } from './upload-form.js';
+import { uploadedPicture } from './upload-form.js';
 
 let scaleIndex = 1;
 const RESIZE_SCALE_INCREMENT = 0.25;

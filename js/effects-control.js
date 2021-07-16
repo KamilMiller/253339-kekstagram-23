@@ -1,6 +1,4 @@
-import { fileUploadControl } from './image-upload.js';
-import { uploadedPicture } from './image-upload.js';
-import { resetEffects } from './image-upload.js';
+import { fileUploadControl, uploadedPicture, resetEffects } from './upload-form.js';
 
 const effectsData = {
   chrome: {
@@ -133,7 +131,8 @@ const getEffectsLevel = (arr, value) => {
 };
 
 effectList.addEventListener('change', (evt) => changeFiltersSetup(evt, effectsData));
-getEffectsLevel(effectsData, effectLevelValue.value);
+
 sliderElement.noUiSlider.on('update', (_, handle, unencoded) => {
   effectLevelValue.value = unencoded[handle];
+  getEffectsLevel(effectsData, effectLevelValue.value);
 });

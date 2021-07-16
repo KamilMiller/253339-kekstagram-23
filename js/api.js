@@ -1,4 +1,4 @@
-import { closeUpload } from './image-upload.js';
+import { closeUpload } from './upload-form.js';
 
 const DATA_REQUEST_URL = 'https://23.javascript.pages.academy/kekstagram/data';
 const DATA_SUBMIT_URL = 'https://23.javascript.pages.academy/kekstagram';

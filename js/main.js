@@ -1,5 +1,6 @@
 import './photo-cards-render.js';
-import './image-upload.js';
+import './upload-form.js';
+import './validation.js';
 import './image-resize.js';
 import './effects-control.js';
 import { setUserFormSubmit } from './submit-form.js';
