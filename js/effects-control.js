@@ -69,7 +69,7 @@ const effectList = document.querySelector('.effects__list');
 const noEffect = effectList.querySelector('#effect-none');
 
 // Функция переключения фильтров.
-const effectChangeHandler = (evt) => {
+const onEffectControlChange = (evt) => {
   if (!evt.target.matches('#effect-none')) {
     sliderContainer.style.display = 'block';
     for (const effect in effectsData) {
@@ -87,8 +87,10 @@ const effectChangeHandler = (evt) => {
 fileUploadControl.addEventListener('change', () => {
   sliderContainer.style.display = 'none';
 });
-effectList.addEventListener('change', effectChangeHandler);
-noEffect.addEventListener('click', () => sliderContainer.style = 'display: none');
+effectList.addEventListener('change', onEffectControlChange);
+noEffect.addEventListener('click', () => {
+  sliderContainer.style = 'display: none';
+});
 
 // Инициализация слайдера.
 noUiSlider.create(sliderElement, {
@@ -111,7 +113,7 @@ noUiSlider.create(sliderElement, {
 });
 
 // Функция изменения настроек слайдера для фильтров.
-const changeFiltersSetup = (filter, arr) => {
+const onEffectSettingsChange = (filter, arr) => {
   for (const element in arr) {
     if (filter.target.matches(`#effect-${element}`)) {
       sliderElement.noUiSlider.updateOptions(arr[element].options);
@@ -130,7 +132,7 @@ const getEffectsLevel = (arr, value) => {
   }
 };
 
-effectList.addEventListener('change', (evt) => changeFiltersSetup(evt, effectsData));
+effectList.addEventListener('change', (evt) => onEffectSettingsChange(evt, effectsData));
 
 sliderElement.noUiSlider.on('update', (_, handle, unencoded) => {
   effectLevelValue.value = unencoded[handle];

@@ -13,8 +13,9 @@ const onModalEscKeyDown = (evt) => {
 };
 
 const onSpaceAroundModalClick = (evt) => {
+  const target = evt.target;
   const element = document.querySelector('.modal-open');
-  if (evt.target !== element.querySelector('div')) {
+  if (!target.closest('.success__inner') && !target.closest('.error__inner')) {
     element.remove();
   }
 };
@@ -35,7 +36,7 @@ const showAlert = (alert) => {
   buttonElement.addEventListener('click', onModalButtonClick);
 };
 
-const successAlert = () => showAlert(successModalTemplate);
-const errorAlert = () => showAlert(errorModalTemplate);
+const showSuccessAlert = () => showAlert(successModalTemplate);
+const showErrorAlert = () => showAlert(errorModalTemplate);
 
-export { successAlert, errorAlert };
+export { showSuccessAlert, showErrorAlert };

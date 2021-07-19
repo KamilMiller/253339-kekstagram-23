@@ -1,5 +1,4 @@
 import { isEscEvent } from './util.js';
-// import { checkHashtagValidity } from './validation.js';
 
 const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 
@@ -17,7 +16,9 @@ const effectNone = document.querySelector('#effect-none');
 // Загрузка файла изображения
 const uploadFile = () => {
   uploadedPicture.src = '';
-  effectsPreview.forEach((effect) => effect.style = 'background-image: none');
+  effectsPreview.forEach((effect) => {
+    effect.style = 'background-image: none';
+  });
   const file = fileUploadControl.files[0];
   const fileName = file.name.toLowerCase();
   const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
@@ -25,7 +26,9 @@ const uploadFile = () => {
     const reader = new FileReader();
     reader.addEventListener('load', () => {
       uploadedPicture.src = reader.result;
-      effectsPreview.forEach((effect) => effect.style = `background-image: url("${reader.result}")`);
+      effectsPreview.forEach((effect) => {
+        effect.style = `background-image: url("${reader.result}")`;
+      });
     });
     reader.readAsDataURL(file);
   }
@@ -63,12 +66,15 @@ const closeUpload = () => {
   document.removeEventListener('keydown', onUploadFormEscKeyDown);
 };
 
-fileUploadControl.addEventListener('change', () => {
+const onFileUploadControlChange = () => {
   uploadFile();
   openUpload();
-});
-closeFormButton.addEventListener('click', closeUpload);
+};
 
+const onCloseFormButtonClick = () => closeUpload();
+
+fileUploadControl.addEventListener('change', () => onFileUploadControlChange());
+closeFormButton.addEventListener('click', () => onCloseFormButtonClick());
 closeFormButton.addEventListener('keydown', (evt) => {
   if (isEscEvent(evt)) {
     closeUpload();
